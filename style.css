@@ -366,8 +366,8 @@ h1 {
 .dieti-bg { background: rgba(244, 63, 94, 0.1); color: var(--dieti); }
 .dev-bg { background: rgba(16, 185, 129, 0.1); color: var(--dev); }
 
-.info-card h3 { font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.8rem; }
-.info-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+.info-card h3 { font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.75rem; }
+.info-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; justify-content: center; }
 
 /* --- CV Timeline --- */
 .timeline { position: relative; max-width: 900px; margin: 0 auto 60px auto; }
