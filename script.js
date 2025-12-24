@@ -61,16 +61,22 @@ navLinksMobile.forEach(link => {
   });
 });
 
-// Interazioni foto/marquee: toggle .is-pressing e blocco menu
+// Interazioni foto/marquee: pointer events + blocco long-press
 const interactive = document.querySelectorAll('.image-frame, .marquee-strip');
 interactive.forEach(el => {
+  // Blocca menu contestuale
   el.addEventListener('contextmenu', (e) => e.preventDefault());
+
   const add = () => el.classList.add('is-pressing');
   const remove = () => el.classList.remove('is-pressing');
-  el.addEventListener('touchstart', add);
-  el.addEventListener('touchend', remove);
-  el.addEventListener('touchcancel', remove);
-  el.addEventListener('mousedown', add);
-  el.addEventListener('mouseup', remove);
-  el.addEventListener('mouseleave', remove);
+
+  // Pointer unificato
+  el.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') e.preventDefault(); // sopprime long-press/haptic
+    add();
+  }, { passive: false });
+
+  el.addEventListener('pointerup', remove);
+  el.addEventListener('pointercancel', remove);
+  el.addEventListener('pointerleave', remove);
 });
