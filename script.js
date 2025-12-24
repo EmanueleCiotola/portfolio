@@ -7,16 +7,12 @@ window.addEventListener('scroll', () => {
   
   sections.forEach(section => {
     const sectionTop = section.offsetTop;
-    if (pageYOffset >= (sectionTop - 150)) {
-      current = section.getAttribute('id');
-    }
+    if (pageYOffset >= (sectionTop - 150)) current = section.getAttribute('id');
   });
 
   navLinks.forEach(link => {
     link.classList.remove('active');
-    if (link.getAttribute('href').includes(current)) {
-      link.classList.add('active');
-    }
+    if (link.getAttribute('href').includes(current))link.classList.add('active');
   });
 });
 
@@ -30,9 +26,7 @@ const revealObserver = new IntersectionObserver((entries) => {
       revealObserver.unobserve(entry.target); //? Anima una sola volta
     }
   });
-}, {
-  threshold: 0.15
-});
+}, { threshold: 0.15 });
 
 revealElements.forEach(el => revealObserver.observe(el));
 
@@ -65,4 +59,18 @@ navLinksMobile.forEach(link => {
     hamburger.classList.remove('active');
     navMenu.classList.remove('active');
   });
+});
+
+// Interazioni foto/marquee: toggle .is-pressing e blocco menu
+const interactive = document.querySelectorAll('.image-frame, .marquee-strip');
+interactive.forEach(el => {
+  el.addEventListener('contextmenu', (e) => e.preventDefault());
+  const add = () => el.classList.add('is-pressing');
+  const remove = () => el.classList.remove('is-pressing');
+  el.addEventListener('touchstart', add);
+  el.addEventListener('touchend', remove);
+  el.addEventListener('touchcancel', remove);
+  el.addEventListener('mousedown', add);
+  el.addEventListener('mouseup', remove);
+  el.addEventListener('mouseleave', remove);
 });
