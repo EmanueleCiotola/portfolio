@@ -277,7 +277,8 @@ h1 {
   transform: rotate(3deg);
   transition: 0.5s;
   will-change: transform;
-  touch-action: manipulation;
+  /* Aggressivo: blocca gesture di long-press/haptic */
+  touch-action: none;
   -webkit-touch-callout: none;
 }
 .image-frame img {
@@ -330,7 +331,7 @@ h1 {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-drag: none;
-  touch-action: manipulation;
+  touch-action: none;
 }
 .marquee-track { display: flex; width: max-content; animation: scrollMarquee 30s linear infinite; will-change: transform; }
 .marquee-content { display: flex; align-items: center; flex-shrink: 0; }

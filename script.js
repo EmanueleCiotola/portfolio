@@ -63,12 +63,13 @@ navLinksMobile.forEach(link => {
 
 // Interazioni foto/marquee: pointer events + blocco long-press
 const interactive = document.querySelectorAll('.image-frame, .marquee-strip');
+const clearPressing = () => interactive.forEach(el => el.classList.remove('is-pressing'));
+
 interactive.forEach(el => {
   // Blocca menu contestuale
   el.addEventListener('contextmenu', (e) => e.preventDefault());
 
   const add = () => el.classList.add('is-pressing');
-  const remove = () => el.classList.remove('is-pressing');
 
   // Pointer unificato
   el.addEventListener('pointerdown', (e) => {
@@ -76,7 +77,11 @@ interactive.forEach(el => {
     add();
   }, { passive: false });
 
-  el.addEventListener('pointerup', remove);
-  el.addEventListener('pointercancel', remove);
-  el.addEventListener('pointerleave', remove);
+  el.addEventListener('pointerup', clearPressing);
+  el.addEventListener('pointercancel', clearPressing);
+  el.addEventListener('pointerleave', clearPressing);
 });
+
+// Salvaguardia: rimuove lo stato se il rilascio avviene fuori dall'elemento
+window.addEventListener('pointerup', clearPressing, { passive: true });
+window.addEventListener('pointercancel', clearPressing, { passive: true });
