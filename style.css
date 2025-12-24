@@ -86,6 +86,10 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
 }
+body.no-scroll {
+  overflow: hidden;
+  touch-action: none;
+}
 
 /* --- Background Effects --- */
 .background-glow {
@@ -271,22 +275,23 @@ h1 {
   overflow: hidden;
   border: 1px solid var(--glass-border);
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(56, 189, 248, 0.1));
-  display: flex; align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   position: relative;
   transform: rotate(3deg);
   transition: 0.5s;
   will-change: transform;
-  /* Aggressivo: blocca gesture di long-press/haptic */
-  touch-action: none;
-  -webkit-touch-callout: none;
+  -webkit-touch-callout: none !important; /* Blocca menu iOS */
+  -webkit-user-select: none !important;    /* Blocca selezione */
+  user-select: none !important;
+  touch-action: manipulation; 
 }
 .image-frame img {
   position: absolute; top: 0; left: 0;
   width: 100%; height: 100%;
   object-fit: cover; z-index: 2;
   transition: transform 0.5s ease;
-  pointer-events: none;
+  pointer-events: none !important;         /* L'immagine diventa "fantasma": il tocco passa al div */
+  -webkit-user-drag: none !important;
 }
 .profile-msg {
   font-family: var(--font-heading);
@@ -331,7 +336,6 @@ h1 {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-drag: none;
-  touch-action: none;
 }
 .marquee-track { display: flex; width: max-content; animation: scrollMarquee 30s linear infinite; will-change: transform; }
 .marquee-content { display: flex; align-items: center; flex-shrink: 0; }
@@ -343,11 +347,9 @@ h1 {
   color: var(--text-muted);
   padding-right: 1.5rem;
   white-space: nowrap;
-  -webkit-user-select: none;
-  user-select: none;
 }
 @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.marquee-strip.is-pressing .marquee-track { animation-play-state: paused; cursor: grabbing; }
+.marquee-strip:active .marquee-track { animation-play-state: paused; cursor: grabbing; }
 
 /* --- About --- */
 .info-card { display: flex; flex-direction: column; align-items: center; text-align: center; text-wrap: balance; height: 100%; }
@@ -660,7 +662,7 @@ footer { margin-top: 100px; border-top: 1px solid var(--glass-border); backgroun
 .btn:active { transform: scale(0.98); }
 .btn-primary:active { box-shadow: 0 0 15px rgba(56, 189, 248, .4); }
 .btn-outline:active { border-color: var(--accent); }
-.image-frame.is-pressing { transform: rotate(0deg); }
+.image-frame:active { transform: rotate(0deg); }
 
 /* Footer */
 .footer-socials a:active { color: var(--accent); }

@@ -48,40 +48,48 @@ document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const navLinksMobile = document.querySelectorAll('.nav-link');
+const body = document.body;
 
 hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('active');
   navMenu.classList.toggle('active');
+  body.classList.toggle('no-scroll', navMenu.classList.contains('active'));
 });
 
 navLinksMobile.forEach(link => {
   link.addEventListener('click', () => {
     hamburger.classList.remove('active');
     navMenu.classList.remove('active');
+    body.classList.remove('no-scroll');
   });
 });
 
-// Interazioni foto/marquee: pointer events + blocco long-press
-const interactive = document.querySelectorAll('.image-frame, .marquee-strip');
-const clearPressing = () => interactive.forEach(el => el.classList.remove('is-pressing'));
 
-interactive.forEach(el => {
-  // Blocca menu contestuale
-  el.addEventListener('contextmenu', (e) => e.preventDefault());
 
-  const add = () => el.classList.add('is-pressing');
 
-  // Pointer unificato
-  el.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'touch') e.preventDefault(); // sopprime long-press/haptic
-    add();
+// Seleziona la foto e gli elementi interattivi
+const photo = document.querySelector('.image-frame');
+
+const disableHaptic = (e) => {
+  // Impedisce l'apertura del menu contestuale e la relativa vibrazione
+  e.preventDefault();
+  return false;
+};
+
+if (photo) {
+  // Blocca il menu contestuale (clic destro / tap prolungato)
+  photo.addEventListener('contextmenu', disableHaptic);
+  
+  // Opzionale: impedisce il "gesture menu" di alcuni browser Android
+  photo.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 1) e.preventDefault(); // Blocca pinch-to-zoom sulla foto
   }, { passive: false });
+}
 
-  el.addEventListener('pointerup', clearPressing);
-  el.addEventListener('pointercancel', clearPressing);
-  el.addEventListener('pointerleave', clearPressing);
-});
-
-// Salvaguardia: rimuove lo stato se il rilascio avviene fuori dall'elemento
-window.addEventListener('pointerup', clearPressing, { passive: true });
-window.addEventListener('pointercancel', clearPressing, { passive: true });
+// Se vuoi estenderlo a TUTTO il sito (tranne i link/bottoni reali)
+document.addEventListener('contextmenu', (e) => {
+  // Se non stiamo cliccando su un link o un tasto, blocca il menu e la vibrazione
+  if (!e.target.closest('a') && !e.target.closest('button')) {
+    e.preventDefault();
+  }
+}, false);
