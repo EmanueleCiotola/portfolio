@@ -17,18 +17,25 @@ window.addEventListener('scroll', () => {
 });
 
 // Reveal on Scroll
-const revealElements = document.querySelectorAll('.reveal-on-scroll');
+// Reveal on Scroll - Solo se lo schermo è sopra i 900px
+const revealElements = document.querySelectorAll('.reveal-on-scroll, .timeline-item, .btn-icon-text');
+const isLowEndDevice = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || 
+                       (navigator.deviceMemory && navigator.deviceMemory <= 4);
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target); //? Anima una sola volta
-    }
-  });
-}, { threshold: 0.15 });
+if (!isLowEndDevice) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
 
-revealElements.forEach(el => revealObserver.observe(el));
+  revealElements.forEach(el => revealObserver.observe(el));
+} else {
+  revealElements.forEach(el => el.classList.add('visible'));
+}
 
 // Smooth Scroll
 document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
