@@ -111,6 +111,7 @@ h1 {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   margin-bottom: 3rem;
   text-align: center;
+  text-wrap: balance;
 }
 
 /* --- Navbar --- */
@@ -270,6 +271,10 @@ h1 {
   object-fit: cover;
   z-index: 2;
   transition: transform 0.5s ease;
+  -webkit-touch-callout: none; 
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none; 
 }
 .profile-msg {
   font-family: var(--font-heading);
@@ -307,13 +312,11 @@ h1 {
   transform: rotate(-1deg);
   margin: 40px 0;
   cursor: grab;
+  -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-drag: none;
 }
 .marquee-track { display: flex; width: max-content; animation: scrollMarquee 45s linear infinite; will-change: transform; }
 .marquee-content { display: flex; align-items: center; flex-shrink: 0; }
