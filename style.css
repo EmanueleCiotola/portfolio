@@ -315,7 +315,7 @@ h1 {
   -webkit-touch-callout: none;
   -webkit-user-drag: none;
 }
-.marquee-track { display: flex; width: max-content; animation: scrollMarquee 30s linear infinite; will-change: transform; }
+.marquee-track { display: flex; width: max-content; animation: scrollMarquee 45s linear infinite; will-change: transform; }
 .marquee-content { display: flex; align-items: center; flex-shrink: 0; }
 .marquee-content span {
   font-family: var(--font-heading);
