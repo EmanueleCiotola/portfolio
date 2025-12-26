@@ -63,33 +63,3 @@ navLinksMobile.forEach(link => {
     body.classList.remove('no-scroll');
   });
 });
-
-
-
-
-// Seleziona la foto e gli elementi interattivi
-const photo = document.querySelector('.image-frame');
-
-const disableHaptic = (e) => {
-  // Impedisce l'apertura del menu contestuale e la relativa vibrazione
-  e.preventDefault();
-  return false;
-};
-
-if (photo) {
-  // Blocca il menu contestuale (clic destro / tap prolungato)
-  photo.addEventListener('contextmenu', disableHaptic);
-  
-  // Opzionale: impedisce il "gesture menu" di alcuni browser Android
-  photo.addEventListener('touchstart', (e) => {
-    if (e.touches.length > 1) e.preventDefault(); // Blocca pinch-to-zoom sulla foto
-  }, { passive: false });
-}
-
-// Se vuoi estenderlo a TUTTO il sito (tranne i link/bottoni reali)
-document.addEventListener('contextmenu', (e) => {
-  // Se non stiamo cliccando su un link o un tasto, blocca il menu e la vibrazione
-  if (!e.target.closest('a') && !e.target.closest('button')) {
-    e.preventDefault();
-  }
-}, false);

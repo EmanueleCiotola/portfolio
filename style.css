@@ -2,13 +2,6 @@
 @font-face {
   font-family: 'Outfit';
   font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url('assets/fonts/outfit-v15-latin-300.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Outfit';
-  font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url('assets/fonts/outfit-v15-latin-400.woff2') format('woff2');
@@ -27,21 +20,7 @@
   font-display: swap;
   src: url('assets/fonts/outfit-v15-latin-600.woff2') format('woff2');
 }
-@font-face {
-  font-family: 'Outfit';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('assets/fonts/outfit-v15-latin-700.woff2') format('woff2');
-}
 
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('assets/fonts/space-grotesk-v22-latin-500.woff2') format('woff2');
-}
 @font-face {
   font-family: 'Space Grotesk';
   font-style: normal;
@@ -109,6 +88,7 @@ h1 {
   font-size: clamp(2.5rem, 6vw, 4rem);
   line-height: 1.1;
   margin-bottom: 1.5rem;
+  font-weight: 700;
 }
 
 .text-gradient {
@@ -238,6 +218,7 @@ h1 {
   color: var(--text-muted);
   margin-bottom: 2rem;
   max-width: 500px;
+  text-wrap: balance;
 }
 
 .hero-socials { display: flex; gap: 20px; margin-bottom: 35px; }
@@ -280,18 +261,15 @@ h1 {
   transform: rotate(3deg);
   transition: 0.5s;
   will-change: transform;
-  -webkit-touch-callout: none !important; /* Blocca menu iOS */
-  -webkit-user-select: none !important;    /* Blocca selezione */
-  user-select: none !important;
-  touch-action: manipulation; 
 }
 .image-frame img {
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: cover; z-index: 2;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  z-index: 2;
   transition: transform 0.5s ease;
-  pointer-events: none !important;         /* L'immagine diventa "fantasma": il tocco passa al div */
-  -webkit-user-drag: none !important;
 }
 .profile-msg {
   font-family: var(--font-heading);
@@ -386,17 +364,22 @@ h1 {
 .info-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
 
 /* --- CV Timeline --- */
-.timeline { position: relative; max-width: 900px; margin: 0 auto 60px auto; }
+.timeline { position: relative; margin: 0 auto 60px auto; }
 .timeline-line {
-  position: absolute; left: 50%; top: 0;
-  width: 2px; height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
   background: linear-gradient(to bottom, transparent, var(--accent), transparent);
   transform: translateX(-50%);
   box-shadow: 0 0 15px var(--accent);
 }
 
 .timeline-item {
-  display: flex; justify-content: center; align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 60px;
   position: relative;
   opacity: 0; transform: translateY(30px);
@@ -428,6 +411,7 @@ h1 {
   backdrop-filter: blur(10px);
   transition: transform .3s ease, border-color .3s;
   will-change: transform, border-color;
+  text-wrap: pretty;
 }
 
 .timeline-item.left { justify-content: flex-start; }
@@ -537,7 +521,7 @@ footer { margin-top: 100px; border-top: 1px solid var(--glass-border); backgroun
 .footer-socials { display: flex; gap: 1.5rem; }
 .footer-socials a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: .3s; }
 
-.copyright { color: #475569; font-size: .85rem; }
+.copyright { color: var(--text-muted); font-size: .85rem; }
 
 /* =========================================
    === RESPONSIVE LAYOUT (MEDIA QUERIES) ===
